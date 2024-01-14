@@ -4,17 +4,19 @@
 //Para importar librerías, Sketch -> Import Library...
 import processing.serial.*;
 
-//Variable para guardar una instancia (copia) específica de la clase Serial.
+//Instancia port a la clase Serial.
 Serial port;
 //Variable de texto para recibir lo que se escuche del puerto serial.
 String mensaje = null;
 
 void setup(){
-  //Inicializamos nuestra copia de la clase Serial con tres parámetros.
-  //'this' se refiere a este 'momento' en Processing (No preocuparse por esta parte).
+//Serial(parent, portName, baudRate, parity, dataBits, stopBits)
+  //Inicializamos nuestra instancia de la clase Serial con tres de lo parámetros anteriores.
+  //'this' parent, se refiere a este 'momento' en Processing (No preocuparse por esta parte).
   //"COM3" es el nombre del puerto serial a escuchar. Para escuchar al Arduino, hay que fijarse en el nombre del puerto por el cual el Arduino es programado.
-  //9600 símbolos por segundo. Hay que sincronizar esta tasa/velocidad con la que está usando el Arduino.
+  //9600 baudios (caracteres por segundo). Hay que sincronizar esta tasa/velocidad con la que está usando el Arduino.
   port = new Serial(this, "COM3", 9600);
+//https://processing.org/reference/libraries/serial/Serial.html
   //Definimos un tamaño de ventana de dibujo de 600x600 pixeles.
   size(600,600);
 }
@@ -31,13 +33,13 @@ void draw(){
   
   //Si el mensaje recibido por serial no está vacío.
   if(mensaje!=null){
-    //Separamos el mensaje por medio del separador que concatenamos en Arduino, el caracter diagonal.
+    //Separamos el mensaje por medio del separador que concatenamos en Arduino, el caracter ','.
     //la función split nos devuelve 4 piezas separadas, las cuales son piezas de texto. La función int() las convierte en números. Ahora tenemos 4 números.
     //Esto cuatro números los guardamos todos al mismo tiempo en una sola variable tipo arreglo, la cual identificamos por los corchetes cuadrados.
     //Las variables tipo arreglo, son variables que guardan varios valores del mismo tipo, al mismo tiempo.
-    int[] values = int(split(mensaje,'/'));
+    int[] datosVuelo = int(split(mensaje,','));
     //Accedemos a los valores guardados en el arreglo, por medio de índices. En programación, el primer índice siempre es el cero.
-    //En Arduino, definimos nuestro mensaje como r+"/"+t+"/"+ps+"/"+pd, así que el índice cero, hace referencia al valor de ritmo, y el índice uno hace referencia a la temperatura. 
+    //En Arduino, definimos nuestro mensaje como i+","+T+","+h+","+lat..., así que el índice cero, hace referencia al valor índice, y el índice uno hace referencia a la temperatura. 
     println(values[0] + " " + values[1]);
     //Dibujamos un cuadrado de 100x100, con la posición en x definida por el valor de ritmo, y la posición en y definida por la temperatura.
     //Multiplicamos los valores por 2 para notar mejor la diferencia de posiciones.
