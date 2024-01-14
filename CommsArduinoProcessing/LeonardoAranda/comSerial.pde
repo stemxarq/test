@@ -42,7 +42,8 @@ void draw(){
     //En Arduino, definimos nuestro mensaje como i+","+T+","+h+","+lat..., así que el índice cero, hace referencia al valor índice, y el índice uno hace referencia a la temperatura. 
     println(values[0] + " " + values[1]);
     //Dibujamos un cuadrado de 100x100, con la posición en x definida por el valor de ritmo, y la posición en y definida por la temperatura.
-    //Multiplicamos los valores por 2 para notar mejor la diferencia de posiciones.
-    rect(values[0]*2, values[1]*2, 100, 100);
+    //rect(a, b, c, d) donde c=ancho y d=alto
+    //Multiplicamos los datosVuelo por 2 para notar mejor la diferencia de posiciones.
+    rect(datosVuelo[0]*2, datosVuelo[1]*2, 100, 100);
   }
 }
