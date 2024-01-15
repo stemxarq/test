@@ -1,7 +1,8 @@
 /*Este código es para escuchar, mediante Processing, lo que se envíe por puerto serial en el Arduino. Es nuestro propio monitor serial*/
+// Modificado por STEMXarq
 
 //Importación de la librería para crear puertos seriales en Processing.
-//Para importar librerías, Sketch -> Import Library...
+//RECUERDA: Para importar librerías, Sketch -> Import Library...
 import processing.serial.*;
 
 //Instancia port a la clase Serial.
@@ -10,15 +11,21 @@ Serial port;
 String mensaje = null;
 
 void setup(){
-//Serial(parent, portName, baudRate, parity, dataBits, stopBits)
-  //Inicializamos nuestra instancia de la clase Serial con tres de lo parámetros anteriores.
-  //'this' parent, se refiere a este 'momento' en Processing (No preocuparse por esta parte).
-  //"COM3" es el nombre del puerto serial a escuchar. Para escuchar al Arduino, hay que fijarse en el nombre del puerto por el cual el Arduino es programado.
-  //9600 baudios (caracteres por segundo). Hay que sincronizar esta tasa/velocidad con la que está usando el Arduino.
+/* Serial(parent, portName, baudRate, parity, dataBits, stopBits) 
+   https://processing.org/reference/libraries/serial/Serial.html
+  
+   Inicializamos nuestra instancia de la clase Serial con tres de los parámetros anteriores.
+   'this' parent, se refiere a este 'momento' en Processing (No preocuparse por esta parte).
+   "COM3" es el nombre del puerto serial a escuchar. 
+   /dev/cua0 (dispositivo entrada), /dev/ttyS0 (COM1) ((salida) direccion 0x3f8 IRQ 4; 
+   0, 1, 2, 3... es el número del puerto serie -1.
+   9600 baudios (caracteres por segundo). Sincronizar esta tasa/velocidad con Arduino.
+*/
+
   port = new Serial(this, "COM3", 9600);
-//https://processing.org/reference/libraries/serial/Serial.html
-  //Definimos un tamaño de ventana de dibujo de 600x600 pixeles.
-  size(600,600);
+
+  //Definimos un tamaño de ventana de dibujo de 800x600 pixeles.
+  size(800,600);
 }
 
 void draw(){
